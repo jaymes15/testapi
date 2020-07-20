@@ -3,6 +3,7 @@ from rest_framework.decorators import APIView
 from .models import Details
 from .serializers import DetailSerializer
 from rest_framework.response import Response
+from rest_framework import status
 # Create your views here.
 
 
@@ -21,6 +22,15 @@ class DetailsListView(APIView):
 		serializer.data
 		return Response(serializer.data)
 
+	def post(self, request):
+		serializer = DetailSerializer(data=request.data)
+		if (serializer.is_valid()):
+			serializer.save()
+			return Response(serializer.data, status=status.HTTP_201_CREATED )
+		return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+
+
+
 
 class DetailView(APIView):
 
@@ -29,4 +39,5 @@ class DetailView(APIView):
 		serializer = DetailSerializer(detail, many=False)
 		serializer.data
 		return Response(serializer.data)
+
 
