@@ -21,3 +21,12 @@ class DetailsListView(APIView):
 		serializer.data
 		return Response(serializer.data)
 
+
+class DetailView(APIView):
+
+	def get(self, request, id):
+		detail = Details.objects.get(id = id)
+		serializer = DetailSerializer(detail, many=False)
+		serializer.data
+		return Response(serializer.data)
+
