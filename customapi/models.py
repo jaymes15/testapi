@@ -7,6 +7,7 @@ class Details(models.Model):
 
 	name = models.CharField(max_length=200,default='')
 	address  = models.CharField(max_length=500,default='')
+	image = models.ImageField(upload_to='profile_image',blank=True)
 	
 	def __str__(self):
 		return self.name
